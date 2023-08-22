@@ -28,6 +28,9 @@ public class GameManager : MonoBehaviour
     void InitGame()
     {
         CardsArray = new Card[12];
+        int cardsPerRow = 4;
+        int rowNumber = 0;
+        int columnNumber = 0;
 
         for (int i = 0; i < CardsArray.Length; i++)
         {
@@ -35,7 +38,26 @@ public class GameManager : MonoBehaviour
             GameObject go = Instantiate(CardPrefab, CardParent);
             CardsArray[i] = go.GetComponent<Card>();
 
-
+            //set card position
+            rowNumber = 0;
+            columnNumber = i + 1;
+            if(i + 1 > cardsPerRow + cardsPerRow)
+            {
+                rowNumber = 2;
+            } else if(i + 1 > cardsPerRow)
+            {
+                rowNumber = 1;
+            }
+            if(columnNumber > cardsPerRow)
+            {
+                columnNumber = columnNumber - 4;
+            } 
+            if(columnNumber > cardsPerRow)
+            {
+                columnNumber = columnNumber - 4;
+            }
+            Debug.Log("i: " + i + ", rowNumber: " + rowNumber + ", columnNumber: " + columnNumber);
+            go.transform.position = new Vector3(0f + columnNumber, 0F - rowNumber, 0f);
         }
     }
 }
