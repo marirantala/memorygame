@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        ControlsUpdate();
     }
 
     void InitGame()
@@ -74,6 +74,14 @@ public class GameManager : MonoBehaviour
         average = average / (float)(CardsArray.Length);
         average.z = -10f;
         Camera.position = average;
+    }
+
+    void ControlsUpdate()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+
+        }
     }
 
 }

@@ -10,6 +10,7 @@ public class Card : MonoBehaviour
 
     //private
     int Type;
+    bool IsOpen;
 
     // Start is called before the first frame update
     void Start()
@@ -25,9 +26,31 @@ public class Card : MonoBehaviour
 
     public void InitCard(int type)
     {
+        //set initial values
+        IsOpen = false;
         Type = type;
 
         //set the image material
         Model.material = CardMaterials[type];
+    }
+
+    public int GetCardType()
+    {
+        return Type;
+    }
+
+    public bool GetIsOpen()
+    {
+        return IsOpen;
+    }
+
+    public void OpenCard()
+    {
+        IsOpen = true;
+    }
+
+    public void CloseCard()
+    {
+        IsOpen = false;
     }
 }
