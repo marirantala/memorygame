@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
     //public variables
     public GameObject CardPrefab;
     public Transform CardParent;
+    public Transform Camera;
 
     //private variables
     Card[] CardsArray;
@@ -56,8 +57,21 @@ public class GameManager : MonoBehaviour
             {
                 columnNumber = columnNumber - 4;
             }
-            Debug.Log("i: " + i + ", rowNumber: " + rowNumber + ", columnNumber: " + columnNumber);
+            //Debug.Log("i: " + i + ", rowNumber: " + rowNumber + ", columnNumber: " + columnNumber);
             go.transform.position = new Vector3(0f + columnNumber, 0F - rowNumber, 0f);
         }
+
+        //Move camera
+        Camera.position = new Vector3(0f, 0f, 0f);
+        Vector3 average = new Vector3(0f, 0f, 0f);
+
+        for (int i = 0; i < CardsArray.Length; i++)
+        {
+            average += CardsArray[i].transform.position;
+        }
+        average = average / (float)(CardsArray.Length);
+        average.z = -10f;
+        Camera.position = average;
     }
+
 }
