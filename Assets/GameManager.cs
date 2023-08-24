@@ -59,6 +59,8 @@ public class GameManager : MonoBehaviour
             }
             //Debug.Log("i: " + i + ", rowNumber: " + rowNumber + ", columnNumber: " + columnNumber);
             go.transform.position = new Vector3(0f + columnNumber, 0F - rowNumber, 0f);
+
+            CardsArray[i].InitCard(0);
         }
 
         //Move camera

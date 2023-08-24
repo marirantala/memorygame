@@ -45,6 +45,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0dd669e4d7ad9141a52067884d331c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CardMaterials:
+  - {fileID: 2100000, guid: 107653b4f03cebf48b8051cc1d5decd2, type: 2}
+  - {fileID: 2100000, guid: 009d938ce03741c4d96cfa2663641668, type: 2}
+  - {fileID: 2100000, guid: 831b8a90808438e40a8b374bc69a5edf, type: 2}
+  - {fileID: 2100000, guid: d21a59dea2b03fa4c9342e5e477a1605, type: 2}
+  - {fileID: 2100000, guid: 5ef6972228497754aa2ed908abd49596, type: 2}
+  - {fileID: 2100000, guid: a096b9677f22e4a4e9bffd682ae89c5b, type: 2}
+  - {fileID: 2100000, guid: 8a1bbacc648ebaf43b2b40183f0cf42b, type: 2}
+  - {fileID: 2100000, guid: 9270e369d1839d94981a0cbf3467344d, type: 2}
+  - {fileID: 2100000, guid: b5d7e5e75c099e84b808658059a5f397, type: 2}
+  Model: {fileID: 4105421371804969149}
 --- !u!1 &9203962240649466011
 GameObject:
   m_ObjectHideFlags: 0
