@@ -11,6 +11,8 @@ public class GameManager : MonoBehaviour
 
     //private variables
     Card[] CardsArray;
+    Card OpenCard1;
+    Card OpenCard2;
     
 
 
@@ -24,6 +26,7 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         ControlsUpdate();
+        CheckGameState();
     }
 
     void InitGame()
@@ -101,6 +104,10 @@ public class GameManager : MonoBehaviour
         average = average / (float)(CardsArray.Length);
         average.z = -10f;
         Camera.position = average;
+
+        //Set open cards as empty
+        OpenCard1 = null;
+        OpenCard2 = null;
     }
 
     void ControlsUpdate()
@@ -119,9 +126,40 @@ public class GameManager : MonoBehaviour
 
                 //get the card script
                 Card card = hit.transform.parent.GetComponent<Card>();
-                card.OpenCard();
-
+                bool success = card.OpenCard();
+                if (success)
+                {
+                    if(OpenCard1 == null)
+                    {
+                        OpenCard1 = card;
+                    } 
+                    else if(OpenCard2 == null)
+                    {
+                        OpenCard2 = card;
+                    }
+                }
+                
             }
+        }
+    }
+
+    void CheckGameState()
+    {
+        if(OpenCard1 != null && OpenCard2 != null)
+        {
+            if (OpenCard1.GetCardType() == OpenCard2.GetCardType())
+            {
+                OpenCard1.SetIisComplete(true);
+                OpenCard2.SetIisComplete(true);
+            }
+            else
+            {
+                OpenCard1.CloseCard();
+                OpenCard2.CloseCard();
+            }
+
+            OpenCard1 = null;
+            OpenCard2 = null;
         }
     }
 

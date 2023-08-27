@@ -11,6 +11,7 @@ public class Card : MonoBehaviour
     //private
     int Type;
     bool IsOpen;
+    bool IsComplete;
 
     // Start is called before the first frame update
     void Start()
@@ -27,6 +28,7 @@ public class Card : MonoBehaviour
     public void InitCard(int type)
     {
         //set initial values
+        IsComplete = false;
         IsOpen = false;
         Type = type;
 
@@ -44,18 +46,39 @@ public class Card : MonoBehaviour
         return IsOpen;
     }
 
-    public void OpenCard()
-    {
-        if (IsOpen) return;
 
+    public bool OpenCard()
+    {
+        if (IsOpen) return false;
+        
         IsOpen = true;
 
         //rotate card
         transform.Rotate(new Vector3(0, 180, 0));
+
+        return true;
     }
 
-    public void CloseCard()
+    public bool CloseCard()
     {
+        if (!IsOpen) return false;
+
         IsOpen = false;
+
+        //rotate card
+        transform.Rotate(new Vector3(0, 180, 0));
+
+        return true;
     }
+
+    public bool GetIsComplete()
+    {
+        return IsComplete;
+    }
+
+    public void SetIisComplete(bool value)
+    {
+        IsComplete = value;
+    }
+
 }
