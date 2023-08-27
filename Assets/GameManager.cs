@@ -5,6 +5,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     //public variables
+    public UIManager UIM;
     public GameObject CardPrefab;
     public Transform CardParent;
     public Transform Camera;
@@ -16,6 +17,7 @@ public class GameManager : MonoBehaviour
     Card OpenCard2;
     float WaitTimer;
     bool StartWaitTime;
+    float Timer;
 
 
     // Start is called before the first frame update
@@ -28,6 +30,7 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         ControlsUpdate();
+        TimerUpdate();
         CheckGameState();
     }
 
@@ -113,22 +116,19 @@ public class GameManager : MonoBehaviour
 
         StartWaitTime = false;
         WaitTimer = 0f;
+        Timer = 0f;
     }
 
     void ControlsUpdate()
     {
         //mouse click
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && !StartWaitTime)
         {
             //raycast
             Ray ray = Camera.GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit, 1000f))
             {
-                //debug
-                Debug.Log(hit.transform.parent.name);
-                Debug.Log("hit");
-
                 //get the card script
                 Card card = hit.transform.parent.GetComponent<Card>();
                 bool success = card.OpenCard();
@@ -183,6 +183,12 @@ public class GameManager : MonoBehaviour
 
         WaitTimer += Time.deltaTime;
         WaitTimer = Mathf.Min(WaitTime, WaitTimer);
+    }
+
+    void TimerUpdate()
+    {
+        Timer += Time.deltaTime;
+        UIM.SetTimerText(Timer);
     }
 
 }
