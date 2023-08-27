@@ -46,7 +46,12 @@ public class Card : MonoBehaviour
 
     public void OpenCard()
     {
+        if (IsOpen) return;
+
         IsOpen = true;
+
+        //rotate card
+        transform.Rotate(new Vector3(0, 180, 0));
     }
 
     public void CloseCard()

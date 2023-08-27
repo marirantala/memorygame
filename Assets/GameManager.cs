@@ -38,6 +38,7 @@ public class GameManager : MonoBehaviour
             //create cards
             GameObject go = Instantiate(CardPrefab, CardParent);
             CardsArray[i] = go.GetComponent<Card>();
+            go.name = "Card" + i;
 
             //set card position
             rowNumber = 0;
@@ -66,12 +67,13 @@ public class GameManager : MonoBehaviour
         //Array for card types, same amount as cards
         int[] cardTypes = new int[CardsArray.Length];
 
+        //card types based on number of cards
         for (int i = 0; i < cardTypes.Length; i++)
         {
             cardTypes[i] = i/2;
-            //Debug.Log("i: " + i + ", value: " + cardTypes[i]);
         }
 
+        //randomize card types in array
         for (int i = 0; i < 10; i++)
         {
             int index0 = Random.Range(0, 12);
@@ -81,10 +83,12 @@ public class GameManager : MonoBehaviour
             cardTypes[index1] = temp;
         }
 
+        //set pics based on the randomized card types
         for (int i = 0; i < CardsArray.Length; i++)
         {
             CardsArray[i].InitCard(cardTypes[i]);
         }
+
 
         //Move camera
         Camera.position = new Vector3(0f, 0f, 0f);
@@ -101,9 +105,23 @@ public class GameManager : MonoBehaviour
 
     void ControlsUpdate()
     {
+        //mouse click
         if (Input.GetMouseButtonDown(0))
         {
+            //raycast
+            Ray ray = Camera.GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+            if (Physics.Raycast(ray, out hit, 1000f))
+            {
+                //debug
+                Debug.Log(hit.transform.parent.name);
+                Debug.Log("hit");
 
+                //get the card script
+                Card card = hit.transform.parent.GetComponent<Card>();
+                card.OpenCard();
+
+            }
         }
     }
 
