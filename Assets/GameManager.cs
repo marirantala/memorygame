@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        InitGame();
+        
     }
 
     // Update is called once per frame
@@ -34,7 +34,7 @@ public class GameManager : MonoBehaviour
         CheckGameState();
     }
 
-    void InitGame()
+    public void InitGame()
     {
         CardsArray = new Card[12];
         int cardsPerRow = 4;

@@ -7,8 +7,9 @@ using TMPro;
 public class UIManager : MonoBehaviour
 {
     public GameManager GM;
-
     public TextMeshProUGUI TimerText;
+    public GameObject StartScreen;
+    public GameObject GameUI;
 
     // Start is called before the first frame update
     void Start()
@@ -26,4 +27,17 @@ public class UIManager : MonoBehaviour
     {
         TimerText.text = Mathf.FloorToInt(seconds).ToString() + " s";
     }
+
+    public void ExitGameButtonFunction()
+    {
+        Application.Quit();
+    }
+
+    public void StartGameButtonFunction()
+    {
+        StartScreen.SetActive(false);
+        GameUI.SetActive(true);
+        GM.InitGame();
+    }
+
 }
