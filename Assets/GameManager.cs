@@ -63,6 +63,29 @@ public class GameManager : MonoBehaviour
             CardsArray[i].InitCard(0);
         }
 
+        //Array for card types, same amount as cards
+        int[] cardTypes = new int[CardsArray.Length];
+
+        for (int i = 0; i < cardTypes.Length; i++)
+        {
+            cardTypes[i] = i/2;
+            //Debug.Log("i: " + i + ", value: " + cardTypes[i]);
+        }
+
+        for (int i = 0; i < 10; i++)
+        {
+            int index0 = Random.Range(0, 12);
+            int index1 = Random.Range(0, 12);
+            int temp = cardTypes[index0];
+            cardTypes[index0] = cardTypes[index1];
+            cardTypes[index1] = temp;
+        }
+
+        for (int i = 0; i < CardsArray.Length; i++)
+        {
+            CardsArray[i].InitCard(cardTypes[i]);
+        }
+
         //Move camera
         Camera.position = new Vector3(0f, 0f, 0f);
         Vector3 average = new Vector3(0f, 0f, 0f);
