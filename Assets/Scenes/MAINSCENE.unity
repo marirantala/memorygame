@@ -364,6 +364,7 @@ MonoBehaviour:
   CardPrefab: {fileID: 5049351101758078053, guid: 218cfd8fb7f44394388d44dc0d15889b, type: 3}
   CardParent: {fileID: 2031320942}
   Camera: {fileID: 963194228}
+  WaitTime: 1
 --- !u!4 &2116612526
 Transform:
   m_ObjectHideFlags: 0

@@ -8,12 +8,14 @@ public class GameManager : MonoBehaviour
     public GameObject CardPrefab;
     public Transform CardParent;
     public Transform Camera;
+    public float WaitTime = 0.5f;
 
     //private variables
     Card[] CardsArray;
     Card OpenCard1;
     Card OpenCard2;
-    
+    float WaitTimer;
+    bool StartWaitTime;
 
 
     // Start is called before the first frame update
@@ -108,6 +110,9 @@ public class GameManager : MonoBehaviour
         //Set open cards as empty
         OpenCard1 = null;
         OpenCard2 = null;
+
+        StartWaitTime = false;
+        WaitTimer = 0f;
     }
 
     void ControlsUpdate()
@@ -151,16 +156,33 @@ public class GameManager : MonoBehaviour
             {
                 OpenCard1.SetIisComplete(true);
                 OpenCard2.SetIisComplete(true);
+                OpenCard1 = null;
+                OpenCard2 = null;
             }
             else
             {
+                if (!StartWaitTime)
+                {
+                    StartWaitTime = true;
+                    WaitTimer = 0f;
+                }
+            }
+        }
+
+        if (StartWaitTime)
+        {
+            if(WaitTimer >= WaitTime)
+            {
                 OpenCard1.CloseCard();
                 OpenCard2.CloseCard();
+                OpenCard1 = null;
+                OpenCard2 = null;
+                StartWaitTime = false;
             }
-
-            OpenCard1 = null;
-            OpenCard2 = null;
         }
+
+        WaitTimer += Time.deltaTime;
+        WaitTimer = Mathf.Min(WaitTime, WaitTimer);
     }
 
 }
