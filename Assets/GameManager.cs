@@ -9,7 +9,8 @@ public class GameManager : MonoBehaviour
     public GameObject CardPrefab;
     public Transform CardParent;
     public Transform Camera;
-    public float WaitTime = 0.5f;
+    public float WaitTime = 0.7f;
+    public float EndWaitTime = 1.5f;
 
     //private variables
     Card[] CardsArray;
@@ -18,6 +19,9 @@ public class GameManager : MonoBehaviour
     float WaitTimer;
     bool StartWaitTime;
     float Timer;
+    float EndTimer;
+    bool GameComplete;
+    bool IsGameRunning;
 
 
     // Start is called before the first frame update
@@ -29,13 +33,24 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        ControlsUpdate();
-        TimerUpdate();
-        CheckGameState();
+        if (!GameComplete && IsGameRunning)
+        {
+            CheckGameWin();
+            ControlsUpdate();
+            TimerUpdate();
+            CheckGameState();
+        } 
+        else
+        {
+            EndGameUpdate();
+        }
     }
 
     public void InitGame()
     {
+        //Destroy previous cards
+        DeInitGame();
+
         CardsArray = new Card[12];
         int cardsPerRow = 4;
         int rowNumber = 0;
@@ -117,6 +132,18 @@ public class GameManager : MonoBehaviour
         StartWaitTime = false;
         WaitTimer = 0f;
         Timer = 0f;
+        EndTimer = 0f;
+        GameComplete = false;
+        IsGameRunning = true;
+    }
+
+    void DeInitGame()
+    {
+        if (CardsArray == null) return;
+        for (int i = 0; i < CardsArray.Length; i++)
+        {
+            Destroy(CardsArray[i].gameObject);
+        }
     }
 
     void ControlsUpdate()
@@ -190,5 +217,32 @@ public class GameManager : MonoBehaviour
         Timer += Time.deltaTime;
         UIM.SetTimerText(Timer);
     }
+
+    void CheckGameWin()
+    {
+        bool allCompleted = true;
+        for (int i = 0; i < CardsArray.Length; i++)
+        {
+            if (!CardsArray[i].GetIsComplete())
+            {
+                allCompleted = false;
+            }
+        }
+        if(allCompleted)
+        {
+            GameComplete = true;
+        }
+    }
+
+    void EndGameUpdate()
+    {
+        if (GameComplete)
+        {
+            IsGameRunning = false;
+            
+            UIM.ShowEndScreen();
+        }
+    }
+
 
 }

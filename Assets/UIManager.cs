@@ -9,6 +9,7 @@ public class UIManager : MonoBehaviour
     public GameManager GM;
     public TextMeshProUGUI TimerText;
     public GameObject StartScreen;
+    public GameObject EndScreen;
     public GameObject GameUI;
 
     // Start is called before the first frame update
@@ -37,7 +38,15 @@ public class UIManager : MonoBehaviour
     {
         StartScreen.SetActive(false);
         GameUI.SetActive(true);
+        EndScreen.SetActive(false);
         GM.InitGame();
+    }
+
+    public void ShowEndScreen()
+    {
+        StartScreen.SetActive(false);
+        GameUI.SetActive(false);
+        EndScreen.SetActive(true);
     }
 
 }
