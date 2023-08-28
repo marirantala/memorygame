@@ -8,6 +8,7 @@ public class UIManager : MonoBehaviour
 {
     public GameManager GM;
     public TextMeshProUGUI TimerText;
+    public TextMeshProUGUI FinalTimerText;
     public GameObject StartScreen;
     public GameObject EndScreen;
     public GameObject GameUI;
@@ -27,6 +28,11 @@ public class UIManager : MonoBehaviour
     public void SetTimerText(float seconds)
     {
         TimerText.text = Mathf.FloorToInt(seconds).ToString() + " s";
+    }
+
+    public void SetFinalTimerText(float seconds)
+    {
+        FinalTimerText.text = "Final Time: " + Mathf.FloorToInt(seconds).ToString() + " s";
     }
 
     public void ExitGameButtonFunction()

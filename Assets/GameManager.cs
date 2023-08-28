@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
     public Transform CardParent;
     public Transform Camera;
     public float WaitTime = 0.7f;
-    public float EndWaitTime = 1.5f;
+    public float EndWaitTime = 1f;
 
     //private variables
     Card[] CardsArray;
@@ -239,8 +239,15 @@ public class GameManager : MonoBehaviour
         if (GameComplete)
         {
             IsGameRunning = false;
+
+            EndTimer += Time.deltaTime;
+            EndTimer = Mathf.Min(EndWaitTime, EndTimer);
+            if (EndTimer >= EndWaitTime)
+            {
+                UIM.ShowEndScreen();
+                UIM.SetFinalTimerText(Timer);
+            }
             
-            UIM.ShowEndScreen();
         }
     }
 
